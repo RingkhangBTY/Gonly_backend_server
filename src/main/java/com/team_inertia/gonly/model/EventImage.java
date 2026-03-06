@@ -15,7 +15,7 @@ public class EventImage {
     @JoinColumn(name = "event_id", nullable = false)
     private LocalEvent event;
 
-    @Lob
+//    @Lob
     @Column(name = "image_data", nullable = false, columnDefinition = "BYTEA")
     private byte[] imageData;
 

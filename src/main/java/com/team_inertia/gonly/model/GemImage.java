@@ -1,6 +1,5 @@
 package com.team_inertia.gonly.model;
 
-
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
@@ -16,7 +15,11 @@ public class GemImage {
     @JoinColumn(name = "gem_id", nullable = false)
     private HiddenGem gem;
 
-    @Lob
+    // ✅ NEW: Track who uploaded this image
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "uploaded_by_id")
+    private User uploadedBy;
+
     @Column(name = "image_data", nullable = false, columnDefinition = "BYTEA")
     private byte[] imageData;
 
@@ -38,8 +41,9 @@ public class GemImage {
 
     public GemImage() {}
 
-    public GemImage(HiddenGem gem, byte[] imageData, String imageType, Integer fileSizeBytes) {
+    public GemImage(HiddenGem gem, User uploadedBy, byte[] imageData, String imageType, Integer fileSizeBytes) {
         this.gem = gem;
+        this.uploadedBy = uploadedBy;
         this.imageData = imageData;
         this.imageType = imageType;
         this.fileSizeBytes = fileSizeBytes;
@@ -61,6 +65,14 @@ public class GemImage {
 
     public void setGem(HiddenGem gem) {
         this.gem = gem;
+    }
+
+    public User getUploadedBy() {
+        return uploadedBy;
+    }
+
+    public void setUploadedBy(User uploadedBy) {
+        this.uploadedBy = uploadedBy;
     }
 
     public byte[] getImageData() {

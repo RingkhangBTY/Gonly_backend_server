@@ -45,6 +45,7 @@ public class MyConfig {
                         .requestMatchers(HttpMethod.GET, "/api/gems/images/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/gems/{id}").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/gems/{gemId}/reviews").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/gems/{gemId}/images/all").permitAll()
 
                         // PUBLIC — GET requests for events
                         .requestMatchers(HttpMethod.GET, "/api/events/**").permitAll()

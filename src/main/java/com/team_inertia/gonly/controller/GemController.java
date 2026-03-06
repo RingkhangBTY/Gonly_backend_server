@@ -5,6 +5,7 @@ import com.team_inertia.gonly.model.GemImage;
 import com.team_inertia.gonly.model.User;
 import com.team_inertia.gonly.service.AuthService;
 import com.team_inertia.gonly.service.GemService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,22 +15,27 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/gems")
+@Slf4j
 public class GemController {
 
-    @Autowired
-    private GemService gemService;
+    private final GemService gemService;
+    private final AuthService authService;
 
-    @Autowired
-    private AuthService authService;
+    public GemController(GemService gemService, AuthService authService) {
+        this.gemService = gemService;
+        this.authService = authService;
+    }
 
     // ==================== PUBLIC ENDPOINTS ====================
 
     // GET /api/gems — Get all approved gems
     @GetMapping
     public ResponseEntity<List<GemResponse>> getAllGems() {
+        log.info("Requested for all available gems");
         return ResponseEntity.ok(gemService.getAllApprovedGems());
     }
 
@@ -44,47 +50,13 @@ public class GemController {
         }
     }
 
-    // ==================== ENHANCED SEARCH ENDPOINTS ====================
-
-    /**
-     * Basic search by name only
-     * GET /api/gems/search?q=Mawlynnong
-     */
+    // ==================== SINGLE ENHANCED SEARCH ENDPOINTS ====================
     @GetMapping("/search")
     public ResponseEntity<List<GemResponse>> searchGems(@RequestParam String q) {
-        return ResponseEntity.ok(gemService.advancedSearch(q));
-    }
-
-    /**
-     * Advanced search across all fields with relevance ranking
-     * GET /api/gems/search/advanced?q=clean village meghalaya
-     */
-    @GetMapping("/search/advanced")
-    public ResponseEntity<List<GemResponse>> advancedSearch(@RequestParam String q) {
-        return ResponseEntity.ok(gemService.advancedSearch(q));
-    }
-
-    /**
-     * Multi-keyword search (matches ANY keyword)
-     * GET /api/gems/search/multi?q=waterfall trekking nature
-     */
-    @GetMapping("/search/multi")
-    public ResponseEntity<List<GemResponse>> multiKeywordSearch(@RequestParam String q) {
-        return ResponseEntity.ok(gemService.multiKeywordSearch(q));
-    }
-
-    /**
-     * Fuzzy search (handles typos)
-     * GET /api/gems/search/fuzzy?q=mawlynong (typo: should be mawlynnong)
-     */
-    @GetMapping("/search/fuzzy")
-    public ResponseEntity<List<GemResponse>> fuzzySearch(@RequestParam String q) {
-        return ResponseEntity.ok(gemService.fuzzySearch(q));
+        return ResponseEntity.ok(gemService.smartSearch(q));
     }
 
     // ==================== FILTER ENDPOINTS ====================
-
-    // GET /api/gems/category?type=NATURE
     @GetMapping("/category")
     public ResponseEntity<List<GemResponse>> filterByCategory(@RequestParam String type) {
         try {
@@ -94,13 +66,11 @@ public class GemController {
         }
     }
 
-    // GET /api/gems/state?name=Meghalaya
     @GetMapping("/state")
     public ResponseEntity<List<GemResponse>> filterByState(@RequestParam String name) {
         return ResponseEntity.ok(gemService.filterByState(name));
     }
 
-    // GET /api/gems/nearby?lat=25.57&lng=91.88&radiusKm=50
     @GetMapping("/nearby")
     public ResponseEntity<List<GemResponse>> getNearbyGems(
             @RequestParam double lat,
@@ -109,7 +79,6 @@ public class GemController {
         return ResponseEntity.ok(gemService.getNearbyGems(lat, lng, radiusKm));
     }
 
-    // GET /api/gems/images/{imageId}
     @GetMapping("/images/{imageId}")
     public ResponseEntity<byte[]> getImage(@PathVariable Long imageId) {
         try {
@@ -122,9 +91,22 @@ public class GemController {
         }
     }
 
-    // ==================== PROTECTED ENDPOINTS ====================
+    // GET /api/gems/{gemId}/images/all
+    // PUBLIC — Returns array of base64 encoded images
+    @GetMapping("/{gemId}/images/all")
+    public ResponseEntity<?> getAllImageBytesForGem(@PathVariable Long gemId) {
+        try {
+            log.info("Fetching all image bytes for gem id: {}", gemId);
+            List<Map<String, Object>> images = gemService.getAllImageBytesForGem(gemId);
+            log.info("Returning {} images for gem id: {}", images.size(), gemId);
+            return ResponseEntity.ok(images);
+        } catch (RuntimeException e) {
+            log.warn("Error fetching images for gem {}: {}", gemId, e.getMessage());
+            return ResponseEntity.notFound().build();
+        }
+    }
 
-    // POST /api/gems
+    // ==================== PROTECTED ENDPOINTS ====================
     @PostMapping
     public ResponseEntity<?> createGem(
             @RequestBody GemRequest request,
@@ -146,6 +128,7 @@ public class GemController {
             @RequestParam("image") MultipartFile file,
             Authentication authentication) {
         try {
+            log.info("Reached upload controller....");
             User user = authService.getUserByEmail(authentication.getName());
             gemService.addImageToGem(id, file, user);
             return ResponseEntity.ok(new ApiResponse(true, "Image uploaded successfully"));

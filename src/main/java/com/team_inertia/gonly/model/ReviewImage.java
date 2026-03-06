@@ -15,7 +15,11 @@ public class ReviewImage {
     @JoinColumn(name = "review_id", nullable = false)
     private Review review;
 
-    @Lob
+    // ✅ NEW: Track who uploaded this image
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "uploaded_by_id")
+    private User uploadedBy;
+
     @Column(name = "image_data", nullable = false, columnDefinition = "BYTEA")
     private byte[] imageData;
 
@@ -37,8 +41,9 @@ public class ReviewImage {
 
     public ReviewImage() {}
 
-    public ReviewImage(Review review, byte[] imageData, String imageType, Integer fileSizeBytes) {
+    public ReviewImage(Review review, User uploadedBy, byte[] imageData, String imageType, Integer fileSizeBytes) {
         this.review = review;
+        this.uploadedBy = uploadedBy;
         this.imageData = imageData;
         this.imageType = imageType;
         this.fileSizeBytes = fileSizeBytes;
@@ -60,6 +65,14 @@ public class ReviewImage {
 
     public void setReview(Review review) {
         this.review = review;
+    }
+
+    public User getUploadedBy() {
+        return uploadedBy;
+    }
+
+    public void setUploadedBy(User uploadedBy) {
+        this.uploadedBy = uploadedBy;
     }
 
     public byte[] getImageData() {

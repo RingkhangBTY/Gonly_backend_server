@@ -7,7 +7,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -43,6 +47,33 @@ public class AuthController {
             log.warn("Failed to authenticate user : {}",e.getMessage());
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(new ApiResponse(false, "Invalid email or password"));
+        }
+    }
+
+    // ==================== GET MY PROFILE ====================
+    // GET /api/auth/profile
+    // PROTECTED — JWT required
+    @GetMapping("/profile")
+    public ResponseEntity<?> getProfile(Authentication authentication) {
+        try {
+            User user = authService.getUserByEmail(authentication.getName());
+
+            log.info("Profile fetched for user: {}", user.getEmail());
+
+            // Build profile response (don't expose password!)
+            Map<String, Object> profile = new HashMap<>();
+            profile.put("id", user.getId());
+            profile.put("email", user.getEmail());
+            profile.put("fullName", user.getFullName());
+            profile.put("homeState", user.getHomeState());
+            profile.put("bio", user.getBio());
+            profile.put("role", user.getRole().name());
+            profile.put("createdAt", user.getCreatedAt());
+
+            return ResponseEntity.ok(profile);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest()
+                    .body(new ApiResponse(false, e.getMessage()));
         }
     }
 }
