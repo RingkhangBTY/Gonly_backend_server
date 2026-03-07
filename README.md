@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🏔️ GONLY — Hidden Gems of Northeast India
+# 🏔️ GONLY — Hidden Gems of India
 
 ### A Crowdsourced Discovery Platform for Unexplored Destinations
 
@@ -9,7 +9,7 @@
 [![JWT](https://img.shields.io/badge/JWT-Auth-orange?style=for-the-badge&logo=jsonwebtokens)](https://jwt.io/)
 [![Android](https://img.shields.io/badge/Android-Client-green?style=for-the-badge&logo=android)](https://developer.android.com/)
 
-*Discover. Explore. Share. — Unveiling the hidden treasures of India's Northeast.*
+*Discover. Explore. Share. — Unveiling the hidden treasures of India.*
 
 ---
 
@@ -21,7 +21,7 @@
 
 ## 🎯 The Problem
 
-Northeast India & other India states are home to some of the most **breathtaking landscapes, rich cultures, and hidden destinations** — yet most remain **undiscovered** by mainstream tourism.
+Northeast India & other Indian states are home to some of the most **breathtaking landscapes, rich cultures, and hidden destinations** — yet most remain **undiscovered** by mainstream tourism.
 
 - 📍 **No centralized platform** exists for discovering offbeat locations
 - 🗺️ **Scattered information** across blogs, social media, and word-of-mouth
@@ -96,10 +96,10 @@ Northeast India & other India states are home to some of the most **breathtaking
 ┌───────────────────────────────────────────────────────────────────────┐
 │                         SPRING BOOT BACKEND                           │
 │                                                                       │
-│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐                │
-│  │ Controllers │───▶│  Services   │───▶│Repositories │                │
-│  │   (REST)    │    │  (Logic)    │    │   (JPA)     │                │
-│  └─────────────┘    └─────────────┘    └──────┬──────┘                │
+│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐               │
+│  │ Controllers │───▶│  Services   │───▶│Repositories │               │
+│  │   (REST)    │    │  (Logic)    │    │   (JPA)     │               │
+│  └─────────────┘    └─────────────┘    └──────┬──────┘               │
 │         │                                     │                       │
 │         │           ┌─────────────┐           │                       │
 │         └──────────▶│ JWT Filter  │           │                       │
@@ -277,7 +277,7 @@ com.team_inertia.gonly/
 ```bash
 # 1. Clone the repository
 git clone https://github.com/RingkhangBTY/Gonly_backend_server
-cd ner-tour
+cd Gonly_backend_server
 
 # 2. Configure database (application.properties)
 spring.datasource.url=jdbc:postgresql://localhost:5432/gonly_db
@@ -304,35 +304,8 @@ curl -X POST http://localhost:8080/api/auth/login \
   -H "Content-Type: application/json" \
   -d '{"email":"test@example.com","password":"password123"}'
 ```
-* You can also use Postman
 
-[//]: # (---)
-
-[//]: # (## 🗺️ Supported Regions)
-
-[//]: # ()
-[//]: # (NER-Tour focuses on the **8 Sisters of Northeast India**:)
-
-[//]: # ()
-[//]: # (| State | Famous For |)
-
-[//]: # (|-------|-----------|)
-
-[//]: # (| 🏔️ **Arunachal Pradesh** | Tawang Monastery, Ziro Valley |)
-
-[//]: # (| 🦏 **Assam** | Kaziranga, Majuli Island |)
-
-[//]: # (| 🎭 **Manipur** | Loktak Lake, Ima Keithel |)
-
-[//]: # (| 🌄 **Meghalaya** | Living Root Bridges, Mawlynnong |)
-
-[//]: # (| 🌸 **Mizoram** | Phawngpui Peak, Tam Dil |)
-
-[//]: # (| 🎺 **Nagaland** | Hornbill Festival, Dzukou Valley |)
-
-[//]: # (| 🍊 **Sikkim** | Gurudongmar Lake, Pelling |)
-
-[//]: # (| 🍵 **Tripura** | Ujjayanta Palace, Neermahal |)
+> 💡 **Tip:** You can also use [Postman](https://www.postman.com/) for easier API testing!
 
 ---
 
@@ -357,7 +330,7 @@ Hidden gems are organized into:
 - [ ] 🗺️ Offline map support
 - [ ] 🤖 AI-powered gem recommendations
 - [ ] 👨‍💼 Admin moderation dashboard
-- [ ] 🌐 Multi-language support (Hindi, Assamese, etc.)
+- [ ] 🌐 Multi-language support (Hindi, Regional languages)
 - [ ] 📊 Travel itinerary generator
 - [ ] 🏆 Gamification — badges for contributors
 
@@ -367,26 +340,45 @@ Hidden gems are organized into:
 
 <div align="center">
 
-### Team Inertia
+### 🚀 Team Inertia
 
-*Built with ❤️ for Northeast India*
+[//]: # ()
+[//]: # (| Role | Member |)
+
+[//]: # (|------|--------|)
+
+[//]: # (| 💻 Backend Developer | Your Name |)
+
+[//]: # (| 📱 Android Developer | Team Member |)
+
+[//]: # (| 🎨 UI/UX Designer | Team Member |)
+
+*Built with ❤️ for India's Hidden Treasures*
 
 </div>
 
 ---
 
-[//]: # (## 📄 License)
+## 🤝 Contributing
 
-[//]: # ()
-[//]: # (This project is licensed under the MIT License — see the [LICENSE]&#40;LICENSE&#41; file for details.)
+We welcome contributions! Feel free to:
 
-[//]: # ()
-[//]: # (---)
+1. 🍴 Fork the repository
+2. 🌿 Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. 💾 Commit your changes (`git commit -m 'Add amazing feature'`)
+4. 📤 Push to the branch (`git push origin feature/amazing-feature`)
+5. 🔃 Open a Pull Request
+
+---
 
 <div align="center">
 
 ### 🌟 Star this repo if you love exploring hidden gems!
 
-**NER-Tour** — *Discover the Undiscovered*
+---
+
+**GONLY** — *Go Only Where Others Haven't*
+
+<sub>Made with ☕ and 💻 by Team Inertia</sub>
 
 </div>
