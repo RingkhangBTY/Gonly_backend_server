@@ -19,11 +19,13 @@ import java.util.List;
 @RequestMapping("/api/events")
 public class EventController {
 
-    @Autowired
-    private EventService eventService;
+    private final EventService eventService;
+    private final AuthService authService;
 
-    @Autowired
-    private AuthService authService;
+    public EventController(EventService eventService, AuthService authService) {
+        this.eventService = eventService;
+        this.authService = authService;
+    }
 
     // GET /api/events — PUBLIC
     @GetMapping
