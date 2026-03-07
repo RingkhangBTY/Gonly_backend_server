@@ -21,7 +21,7 @@
 
 ## 🎯 The Problem
 
-Northeast India is home to some of the most **breathtaking landscapes, rich cultures, and hidden destinations** — yet most remain **undiscovered** by mainstream tourism.
+Northeast India & other India states are home to some of the most **breathtaking landscapes, rich cultures, and hidden destinations** — yet most remain **undiscovered** by mainstream tourism.
 
 - 📍 **No centralized platform** exists for discovering offbeat locations
 - 🗺️ **Scattered information** across blogs, social media, and word-of-mouth
@@ -32,7 +32,7 @@ Northeast India is home to some of the most **breathtaking landscapes, rich cult
 
 ## 💡 Our Solution
 
-**NER-Tour** is a **crowdsourced discovery platform** where users can:
+**GONLY** is a **crowdsourced discovery platform** where users can:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
@@ -82,30 +82,30 @@ Northeast India is home to some of the most **breathtaking landscapes, rich cult
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│                           NER-TOUR ARCHITECTURE                         │
+│                           GONLY ARCHITECTURE                            │
 └─────────────────────────────────────────────────────────────────────────┘
 
                               ┌─────────────────┐
                               │   Android App   │
                               │   (Frontend)    │
-                              └────────┬──────��─┘
+                              └────────┬────────┘
                                        │
                                        │ HTTPS / REST API
                                        │ JWT Authentication
                                        ▼
-┌─────────────────────────────────────────────────────────────────────────┐
-│                         SPRING BOOT BACKEND                             │
-│                                                                         │
+┌───────────────────────────────────────────────────────────────────────┐
+│                         SPRING BOOT BACKEND                           │
+│                                                                       │
 │  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐                │
 │  │ Controllers │───▶│  Services   │───▶│Repositories │                │
 │  │   (REST)    │    │  (Logic)    │    │   (JPA)     │                │
 │  └─────────────┘    └─────────────┘    └──────┬──────┘                │
-│         │                                      │                       │
+│         │                                     │                       │
 │         │           ┌─────────────┐           │                       │
 │         └──────────▶│ JWT Filter  │           │                       │
 │                     │ (Security)  │           │                       │
 │                     └─────────────┘           │                       │
-└──────���────────────────────────────────────────┼───────────────────────┘
+└───────────────────────────────────────────────┼───────────────────────┘
                                                 │
                                                 ▼
                               ┌─────────────────────────────┐
@@ -276,11 +276,11 @@ com.team_inertia.gonly/
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/team-inertia/ner-tour.git
+git clone https://github.com/RingkhangBTY/Gonly_backend_server
 cd ner-tour
 
 # 2. Configure database (application.properties)
-spring.datasource.url=jdbc:postgresql://localhost:5432/nertour
+spring.datasource.url=jdbc:postgresql://localhost:5432/gonly_db
 spring.datasource.username=your_username
 spring.datasource.password=your_password
 
@@ -304,23 +304,35 @@ curl -X POST http://localhost:8080/api/auth/login \
   -H "Content-Type: application/json" \
   -d '{"email":"test@example.com","password":"password123"}'
 ```
+* You can also use Postman
 
----
+[//]: # (---)
 
-## 🗺️ Supported Regions
+[//]: # (## 🗺️ Supported Regions)
 
-NER-Tour focuses on the **8 Sisters of Northeast India**:
+[//]: # ()
+[//]: # (NER-Tour focuses on the **8 Sisters of Northeast India**:)
 
-| State | Famous For |
-|-------|-----------|
-| 🏔️ **Arunachal Pradesh** | Tawang Monastery, Ziro Valley |
-| 🦏 **Assam** | Kaziranga, Majuli Island |
-| 🎭 **Manipur** | Loktak Lake, Ima Keithel |
-| 🌄 **Meghalaya** | Living Root Bridges, Mawlynnong |
-| 🌸 **Mizoram** | Phawngpui Peak, Tam Dil |
-| 🎺 **Nagaland** | Hornbill Festival, Dzukou Valley |
-| 🍊 **Sikkim** | Gurudongmar Lake, Pelling |
-| 🍵 **Tripura** | Ujjayanta Palace, Neermahal |
+[//]: # ()
+[//]: # (| State | Famous For |)
+
+[//]: # (|-------|-----------|)
+
+[//]: # (| 🏔️ **Arunachal Pradesh** | Tawang Monastery, Ziro Valley |)
+
+[//]: # (| 🦏 **Assam** | Kaziranga, Majuli Island |)
+
+[//]: # (| 🎭 **Manipur** | Loktak Lake, Ima Keithel |)
+
+[//]: # (| 🌄 **Meghalaya** | Living Root Bridges, Mawlynnong |)
+
+[//]: # (| 🌸 **Mizoram** | Phawngpui Peak, Tam Dil |)
+
+[//]: # (| 🎺 **Nagaland** | Hornbill Festival, Dzukou Valley |)
+
+[//]: # (| 🍊 **Sikkim** | Gurudongmar Lake, Pelling |)
+
+[//]: # (| 🍵 **Tripura** | Ujjayanta Palace, Neermahal |)
 
 ---
 
