@@ -15,11 +15,13 @@ import java.util.List;
 @RequestMapping("/api/bookmarks")
 public class BookmarkController {
 
-    @Autowired
     private BookmarkService bookmarkService;
-
-    @Autowired
     private AuthService authService;
+
+    public BookmarkController(BookmarkService bookmarkService, AuthService authService) {
+        this.bookmarkService = bookmarkService;
+        this.authService = authService;
+    }
 
     // POST /api/bookmarks/{gemId} — Toggle bookmark (PROTECTED)
     @PostMapping("/{gemId}")

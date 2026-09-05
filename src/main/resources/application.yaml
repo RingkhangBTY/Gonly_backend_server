@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: Gonly
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/gonly_db}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:0000}
+    driver-class-name: org.postgresql.Driver
+
+  servlet:
+    multipart:
+      max-request-size: 10MB
+      max-file-size: 10MB
+
+jwt:
+  secret: ${JWT_SECRET:mySuperSecretKeyThatIsAtLeast32CharactersLong9365543845}

@@ -24,9 +24,10 @@ public class ReviewService {
     private HiddenGemRepository gemRepository;
 
     public ReviewResponse addReview(Long gemId, ReviewRequest request, User user) {
-        if (reviewRepository.existsByGemIdAndUserId(gemId, user.getId())) {
-            throw new RuntimeException("You have already reviewed this gem");
-        }
+
+//        if (reviewRepository.existsByGemIdAndUserId(gemId, user.getId())) {
+//            throw new RuntimeException("You have already reviewed this gem");
+//        }
         if (request.getRating() < 1 || request.getRating() > 5) {
             throw new RuntimeException("Rating must be between 1 and 5");
         }

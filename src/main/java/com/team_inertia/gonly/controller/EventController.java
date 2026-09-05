@@ -5,7 +5,6 @@ import com.team_inertia.gonly.model.EventImage;
 import com.team_inertia.gonly.model.User;
 import com.team_inertia.gonly.service.AuthService;
 import com.team_inertia.gonly.service.EventService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

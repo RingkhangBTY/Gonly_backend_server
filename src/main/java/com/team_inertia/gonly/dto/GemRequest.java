@@ -1,6 +1,5 @@
 package com.team_inertia.gonly.dto;
 
-import jakarta.websocket.server.ServerEndpoint;
 import lombok.Getter;
 import lombok.Setter;
 

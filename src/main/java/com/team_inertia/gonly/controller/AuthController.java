@@ -18,8 +18,11 @@ import java.util.Map;
 @Slf4j
 public class AuthController {
 
-    @Autowired
     private AuthService authService;
+
+    public AuthController(AuthService authService) {
+        this.authService = authService;
+    }
 
     // POST /api/auth/register — PUBLIC
     @PostMapping("/register")

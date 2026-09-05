@@ -3,7 +3,9 @@ package com.team_inertia.gonly.repo;
 import com.team_inertia.gonly.enums.Category;
 import com.team_inertia.gonly.enums.GemStatus;
 import com.team_inertia.gonly.model.HiddenGem;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -59,4 +61,9 @@ public interface HiddenGemRepository extends JpaRepository<HiddenGem, Long> {
     List<HiddenGem> findNearbyGems(@Param("lat") double lat,
                                    @Param("lng") double lng,
                                    @Param("radiusKm") double radiusKm);
+
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM HiddenGem g WHERE g.id = :gemId")
+    void deleteGem(@Param("gemId") Long gemId);
 }

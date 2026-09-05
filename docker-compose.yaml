@@ -1,0 +1,49 @@
+services:
+  postgres:
+    image: postgres:18
+    container_name: gonly-postgres
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_DB: gonly_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "0000"
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql
+
+    networks:
+      - gonly-network
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: gonly-app
+    restart: unless-stopped
+
+    depends_on:
+      - postgres
+
+    ports:
+      - "8080:8080"
+
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/gonly_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: "0000"
+      JWT_SECRET: mySuperSecretKeyThatIsAtLeast32CharactersLong9365543845
+
+    networks:
+      - gonly-network
+
+volumes:
+  postgres_data:
+
+networks:
+  gonly-network:
+    driver: bridge

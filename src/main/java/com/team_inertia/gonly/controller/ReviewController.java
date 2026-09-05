@@ -16,11 +16,13 @@ import java.util.List;
 @RequestMapping("/api/gems/{gemId}/reviews")
 public class ReviewController {
 
-    @Autowired
     private ReviewService reviewService;
-
-    @Autowired
     private AuthService authService;
+
+    public ReviewController(ReviewService reviewService, AuthService authService) {
+        this.reviewService = reviewService;
+        this.authService = authService;
+    }
 
     // GET /api/gems/{gemId}/reviews — PUBLIC
     @GetMapping

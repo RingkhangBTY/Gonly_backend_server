@@ -11,6 +11,7 @@ import com.team_inertia.gonly.model.HiddenGem;
 import com.team_inertia.gonly.model.User;
 import com.team_inertia.gonly.repo.GemImageRepository;
 import com.team_inertia.gonly.repo.HiddenGemRepository;
+import com.team_inertia.gonly.repo.ReportRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,9 @@ public class GemService {
 
     @Autowired
     private GemImageRepository gemImageRepository;
+
+    @Autowired
+    private ReportRepository reportRepository;
 
     // ==================== CREATE GEM ====================
 
@@ -83,7 +87,8 @@ public class GemService {
         if (contentType == null || (!contentType.equals("image/jpeg") && !contentType.equals("image/png"))) {
             throw new RuntimeException("Only JPEG and PNG images are allowed");
         }
-        if (file.getSize() > 2 * 1024 * 1024) {
+        if (file.getSize() > 5 * 1024 * 1024) {
+            log.info(":"+file.getSize());
             throw new RuntimeException("Image size must be less than 2MB");
         }
 
@@ -402,7 +407,15 @@ public class GemService {
         if (!gem.getSubmittedBy().getId().equals(user.getId())) {
             throw new RuntimeException("You can only delete your own gems");
         }
-        gemRepository.delete(gem);
+
+        log.info(gem.toString());
+        log.info(gem.getName());
+
+        if (!reportRepository.findByGemId(gemId).isEmpty()){
+            reportRepository.deleteByGem(gem);
+        }
+//        gemRepository.delete(gem);
+        gemRepository.deleteGem(gemId);
     }
 
     public GemImage getImageById(Long imageId) {
